@@ -1,0 +1,5 @@
+FrontEnd (http://localhost:3001)
+
+Pages Front:
+/: Accueil
+/getReward: Admin pour vérifier les prix gagnés par les clients grace a leurs emails
