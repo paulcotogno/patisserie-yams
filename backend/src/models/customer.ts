@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { ICustomer } from '../types';
+import { CustomerType } from '../types';
 
 const customerSchema = new Schema({
   email: {
@@ -15,13 +15,13 @@ const customerSchema = new Schema({
     type: String,
     required: true
   },
-  launchs: {
+  launches: {
     type: Array,
     required: true,
     default: []
   }
 });
 
-const Customer = model<ICustomer>('Customer', customerSchema);
+const Customer = model<CustomerType>('Customer', customerSchema);
 
 export default Customer;

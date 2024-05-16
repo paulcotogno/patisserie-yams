@@ -1,24 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-interface DecodedToken {
-  userId: string;
+interface PayLoadType {
+  customerId: string;
 }
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  const JWTSecret = process.env.JWT_SECRET as string;
+
+  if(!JWTSecret) {
+    return res.status(403).json({ message: 'Server Error' });
+  }
+
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ message: 'Token d\'authentification requis.' });
+    return res.status(401).json({ message: 'No Identification Token provided' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
+  jwt.verify(token, JWTSecret, (err, payload) => {
     if (err) {
-      return res.status(403).json({ message: 'Token invalide.' });
+      return res.status(403).json({ message: 'Invalid Token' });
     }
-    const decodedToken = decoded as DecodedToken;
-    req.body.userId = decodedToken.userId;
+    req.body.customerId = (payload as PayLoadType).customerId;
     next();
   });
 };

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IPastry } from '../types';
+import { PastryType } from '../types';
 
 const pastrySchema = new Schema({
   name: {
@@ -21,6 +21,6 @@ const pastrySchema = new Schema({
   }
 });
 
-const Pastry = model<IPastry>('Pastry', pastrySchema);
+const Pastry = model<PastryType>('Pastry', pastrySchema);
 
 export default Pastry;

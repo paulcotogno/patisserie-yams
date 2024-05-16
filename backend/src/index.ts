@@ -1,9 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { connectToDatabase } from './utils';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { customerRoutes, dicesRoutes, pastriesRoutes } from './routes';
+
+import { connect } from 'mongoose';
 
 const app = express();
 
@@ -18,14 +19,20 @@ app.use(cors({
 
 const port = process.env.API_PORT || 8080;
 
-
 app.get('/', (req, res) => {
-  res.send("What are you doin' here ?");
+  res.send("Hello world !");
 });
 
 app.listen(port, async () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-  await connectToDatabase();
+  console.log(`BackEnd listening at http://localhost:${port}`);
+  
+  try {
+		await connect(process.env.MONGO_URI as string);
+		console.log('Successfully connected to the database');
+	} catch (err) {
+		console.error('Error connecting to the database:', err);
+		process.exit(1);
+	}
 });
 
 app.use('/api/customers', customerRoutes);
