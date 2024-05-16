@@ -2,7 +2,7 @@ export interface CustomerType {
   email: string;
   firstName: string;
   lastName: string;
-  launchs: Array<{
+  launches: Array<{
     dices: number[],
     pastries: number,
     gain: Array<string>

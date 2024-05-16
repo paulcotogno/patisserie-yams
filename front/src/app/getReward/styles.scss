@@ -1,0 +1,54 @@
+.getReward_wrapper {
+    form {
+        display: flex;
+
+        gap: 32px;
+
+        input {
+            flex: 1 0 60%;
+
+            padding: 4px 8px;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: medium;
+        }
+
+        button {
+            appearance: none;
+      border: none;
+
+      background: black;
+      color: white;
+
+      padding: 8px;
+
+      border-radius: 6px;
+
+      font-size: large;
+        }
+    }
+
+    .customer_wrapper {
+        margin-top: 12px;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 8px 8px;
+
+        gap: 4px;
+
+        border: 1px solid black;
+
+        border-radius: 8px;
+
+        h3 {
+            margin: 8px 0 4px;
+        }
+
+        ul {
+            list-style: none;
+        }
+    }
+}

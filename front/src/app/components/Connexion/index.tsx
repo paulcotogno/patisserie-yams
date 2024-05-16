@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Customer } from "../Home";
 
 import './styles.scss'
 
 export const Connexion = () => {
   const { retrieveCustomer } = useContext(Customer);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const submit = (e: any) => {
     const apiUrl = `http://localhost:8080`;
@@ -27,9 +28,13 @@ export const Connexion = () => {
       if (data.token) {
         window.localStorage.setItem('token', data.token);
         retrieveCustomer();
+      } else {
+        console.log(data);
+        setError(data.message)
       }
     }).catch((err) => {
       console.error(err);
+      setError(err.message)
     });
   }
 
@@ -43,6 +48,11 @@ export const Connexion = () => {
         <input type="text" name="lastName" placeholder="Nom" />
         <button>Se connecter</button>
       </form>
+      {
+        error && (
+          <p>{error}</p>
+        )
+      }
     </div>
   )
 }

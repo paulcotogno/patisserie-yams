@@ -31,7 +31,7 @@ export const Launches = () => {
 
     const listGain: JSX.Element[] = [];
 
-    customer.launchs.forEach((gain) => {
+    customer.launches.forEach((gain) => {
       if (gain.gain.length > 0) {
         gain.gain.forEach((gain, index) => {
           listGain.push(<li key={index}>{gain}</li>);
@@ -40,12 +40,34 @@ export const Launches = () => {
     });
 
     return listGain;
-  }, [customer?.launchs])
+  }, [customer?.launches])
+
+  const launches = useMemo<JSX.Element[]>(() => {
+    if (!customer) return [];
+
+    const launches: JSX.Element[] = [];
+
+    customer.launches.forEach((launch, index) => {
+      launches.push(<Lance {...launch} key={index} />)
+    })
+
+    return launches;
+  }, [customer?.launches])
+
+  const numberOfThrowLeft = useMemo(() => {
+    if(!customer) return 0;
+
+    if(customer.launches[customer.launches.length - 1].pastries > 0) {
+      return 0;
+    }
+
+    return 3 - (customer.launches.length || 0);
+  }, [])
 
   return (
     <div className="launches_wrapper">
       <div className="launch_wrapper">
-        <h1>Il vous reste {3 - (customer?.launchs.length || 0)} lance</h1>
+        <h1>Il vous reste {numberOfThrowLeft} lancé{(3 - (customer?.launches.length || 0)) > 1 && 's'}</h1>
         <button onClick={launchDices}>Jouer</button>
         {
           error && <p>{error}</p>
@@ -61,14 +83,15 @@ export const Launches = () => {
           </div>
         )
       }
-      <div className="oldLaunches">
-        <h2>Tous vos lance</h2>
-        {
-          customer && customer.launchs.map((launch, index) => (
-            <Lance key={index} {...launch} />
-          ))
-        }
-      </div>
+      {
+        launches.length > 0 && (
+          <div className="oldLaunches">
+            <h2>Tous vos lancés</h2>
+            {launches}
+          </div>
+        )
+      }
+      
     </div>
   )
 }
