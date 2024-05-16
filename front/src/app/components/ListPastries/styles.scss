@@ -1,0 +1,44 @@
+.listPastries {
+  padding: 2rem 0;
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .listPastries_wrapper {
+    display: grid;
+    
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    gap: 4px;
+    
+    .pastry_wrapper {
+      display: flex;
+      flex-direction: column;
+
+      border-radius: 16px;
+      overflow: hidden;
+
+      position: relative;
+  
+      img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+      }
+
+      .content {
+        padding: 8px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        color: white;
+
+        background: linear-gradient(0deg, rgba(0,0,0,0.9), rgba(0,0,0,0));
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mt5-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      MONGO_URI: ${MONGO_URI}
+      API_PORT: ${API_PORT}
+      FRONT_PORT: ${FRONT_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: mt5-front
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      API_PORT: ${API_PORT}
+      FRONT_PORT: ${FRONT_PORT}
+      PORT: 3001
+      WATCHPACK_POLLING: true
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "3001:3001"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mt5-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-starter:
+    build: 
+      context: ./starter
+      dockerfile: Dockerfile
+      args:
+        - MONGO_URI=$MONGO_URI
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:

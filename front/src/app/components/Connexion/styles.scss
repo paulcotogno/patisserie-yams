@@ -1,0 +1,47 @@
+.connexion_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 16px;
+
+  height: 100vh;
+
+  gap: 16px;
+
+  max-width: 620px;
+
+  margin: 0 auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 100%;
+
+    input {
+      padding: 4px 8px;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: medium;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+
+      background: black;
+      color: white;
+
+      padding: 8px;
+
+      border-radius: 6px;
+
+      font-size: medium;
+    }
+  }
+}
